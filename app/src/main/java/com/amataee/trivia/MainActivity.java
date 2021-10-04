@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.amataee.trivia.data.Repository;
 import com.amataee.trivia.databinding.ActivityMainBinding;
@@ -33,15 +35,18 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonNext.setOnClickListener(view -> {
             currentQuestionIndex = (currentQuestionIndex + 1) %  questionList.size();
             updateQuestion();
+
         });
 
         binding.buttonTrue.setOnClickListener(view -> {
             checkAnswer(true);
+            updateQuestion();
 
         });
 
         binding.buttonFalse.setOnClickListener(view -> {
             checkAnswer(false);
+            updateQuestion();
 
         });
 
@@ -55,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             snackMessageId = R.string.correct_answer;
         } else {
             snackMessageId = R.string.incorrect;
+            shakeAnim();
         }
         Snackbar.make(binding.cardView, snackMessageId, Snackbar.LENGTH_SHORT)
                 .show();
@@ -70,5 +76,11 @@ public class MainActivity extends AppCompatActivity {
         String question = questionList.get(currentQuestionIndex).getAnswer();
         binding.questionTextView.setText(question);
         updateCounter((ArrayList<Question>) questionList);
+    }
+
+    private void shakeAnim() {
+        Animation shake = AnimationUtils.loadAnimation(MainActivity.this,
+                R.anim.shake_anim);
+        binding.cardView.setAnimation(shake);
     }
 }
