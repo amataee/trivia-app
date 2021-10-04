@@ -7,8 +7,12 @@ import android.util.Log;
 
 import com.amataee.trivia.controller.AppController;
 import com.amataee.trivia.data.Repository;
+import com.amataee.trivia.model.Question;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new Repository().getQuestions();
+        List<Question> questions = new Repository().getQuestions();
+
+        Log.d("TAG", "onCreate: " + questions);
 
     }
 }
