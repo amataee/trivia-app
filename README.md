@@ -1,4 +1,5 @@
 # trivia-app
-A simple quiz app that gets questions from internet 😜
 
-** Beta Version Completed! **
+**Beta Version Completed!**
+
+A simple quiz app that gets questions from internet 😜
