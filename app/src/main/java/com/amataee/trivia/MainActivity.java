@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     List<Question> questionList;
     private int currentQuestionIndex = 1;
     private final Handler handler = new Handler();
+    private int score = 0;
 
 
     @Override
@@ -62,11 +63,20 @@ public class MainActivity extends AppCompatActivity {
 
         if(userChoseCorrect == answer) {
             snackMessageId = R.string.correct_answer;
+            score++;
             fadeAnim();
         } else {
             snackMessageId = R.string.incorrect;
+            score--;
             shakeAnim();
         }
+
+        if (score < 0) {
+            score = 0;
+        }
+
+        binding.scoreTextView.setText("Score: " + score);
+
         Snackbar.make(binding.cardView, snackMessageId, Snackbar.LENGTH_SHORT)
                 .show();
 
