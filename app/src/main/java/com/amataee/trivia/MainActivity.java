@@ -2,6 +2,7 @@ package com.amataee.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Handler;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         boolean answer = questionList.get(currentQuestionIndex).isAnswerTrue();
         int snackMessageId = 0;
 
-        if(userChoseCorrect == answer) {
+        if (userChoseCorrect == answer) {
             snackMessageId = R.string.correct_answer;
             score++;
             fadeAnim();
@@ -81,10 +82,9 @@ public class MainActivity extends AppCompatActivity {
                 .show();
 
         handler.postDelayed(() -> {
-            currentQuestionIndex = (currentQuestionIndex + 1) %  questionList.size();
+            currentQuestionIndex = (currentQuestionIndex + 1) % questionList.size();
             updateQuestion();
         }, 600);
-
 
 
     }

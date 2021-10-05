@@ -35,7 +35,7 @@ public class Repository {
 
                     }
 
-                    if(null != callBack) callBack.processFinished(questionArrayList);
+                    if (null != callBack) callBack.processFinished(questionArrayList);
 
                 }, error -> {
 
