@@ -2,7 +2,7 @@ package com.amataee.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-
+import android.os.Handler;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.animation.AlphaAnimation;
@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     List<Question> questionList;
     private int currentQuestionIndex = 1;
+    private final Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
             updateCounter(questionArrayList);
         });
 
-        binding.buttonNext.setOnClickListener(view -> {
-            currentQuestionIndex = (currentQuestionIndex + 1) %  questionList.size();
-            updateQuestion();
-
-        });
+//        binding.buttonNext.setOnClickListener(view -> {
+//            currentQuestionIndex = (currentQuestionIndex + 1) %  questionList.size();
+//            updateQuestion();
+//
+//        });
 
         binding.buttonTrue.setOnClickListener(view -> {
             checkAnswer(true);
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
         }
         Snackbar.make(binding.cardView, snackMessageId, Snackbar.LENGTH_SHORT)
                 .show();
+
+        handler.postDelayed(() -> {
+            currentQuestionIndex = (currentQuestionIndex + 1) %  questionList.size();
+            updateQuestion();
+        }, 600);
+
+
 
     }
 
