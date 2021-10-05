@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
 
         handler.postDelayed(() -> {
-            currentQuestionIndex = (currentQuestionIndex) %  questionList.size();
+            currentQuestionIndex = (currentQuestionIndex + 1) %  questionList.size();
             updateQuestion();
         }, 600);
 

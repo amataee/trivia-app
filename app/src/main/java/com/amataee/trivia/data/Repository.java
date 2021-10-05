@@ -21,7 +21,7 @@ public class Repository {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
-                    for (int i = 1; i <= 100; i++) {
+                    for (int i = 0; i <= 99; i++) {
                         try {
                             Question question = new Question(response.getJSONArray(i).getString(0),
                                     response.getJSONArray(i).getBoolean(1));
