@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 public class Prefs {
     public static final String HIGHEST_SCORE = "highest_score";
     public static final String STATE = "trivia_state";
+    public static final String CURRENT_SCORE = "current_score";
     private SharedPreferences preferences;
 
     public Prefs(Activity context) {
@@ -32,5 +33,13 @@ public class Prefs {
 
     public int getState() {
         return preferences.getInt(STATE, 1);
+    }
+
+    public void setCurrentScore(int score) {
+        preferences.edit().putInt(CURRENT_SCORE, score).apply();
+    }
+
+    public int getCurrentScore() {
+        return  preferences.getInt(CURRENT_SCORE, 0);
     }
 }

@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         prefs = new Prefs(this);
         currentQuestionIndex = prefs.getState();
 
+        score.setScore(prefs.getCurrentScore());
         binding.scoreTextView.setText(MessageFormat.format("Score: {0}", String.valueOf(score.getScore())));
         binding.highestScoreTextView.setText(MessageFormat.format("Highest: {0}", String.valueOf(prefs.getHighestScore())));
 
@@ -174,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         prefs.saveHighestScore(score.getScore());
         prefs.setState(currentQuestionIndex);
+        prefs.setCurrentScore(scoreCounter);
         super.onPause();
     }
 }
