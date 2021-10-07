@@ -4,10 +4,7 @@
     <string name="true_button">True</string>
     <string name="false_button">False</string>
     <string name="next_button">Next</string>
-    <string name="placeholder">Loading...</string>
     <string name="text_formatted">Question: %d/%d</string>
     <string name="correct_answer">Keep Going!</string>
     <string name="incorrect">Uhh. Be more careful!</string>
-    <string name="score_defualt_text">Score: 0</string>
-    <string name="score_placeholder">Score: 0</string>
 </resources>
