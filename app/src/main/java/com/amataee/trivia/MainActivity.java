@@ -25,11 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     List<Question> questionList;
     private int currentQuestionIndex = 1;
-    private final Handler handler = new Handler();
     private int scoreCounter = 0;
     private Score score;
     private Prefs prefs;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

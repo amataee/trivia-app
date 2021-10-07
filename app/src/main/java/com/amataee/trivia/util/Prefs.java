@@ -40,6 +40,6 @@ public class Prefs {
     }
 
     public int getCurrentScore() {
-        return  preferences.getInt(CURRENT_SCORE, 0);
+        return preferences.getInt(CURRENT_SCORE, 0);
     }
 }
