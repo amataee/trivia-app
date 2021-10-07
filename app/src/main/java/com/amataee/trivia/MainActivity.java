@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Handler;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,8 +14,11 @@ import android.view.animation.AnimationUtils;
 import com.amataee.trivia.data.Repository;
 import com.amataee.trivia.databinding.ActivityMainBinding;
 import com.amataee.trivia.model.Question;
+import com.amataee.trivia.model.Score;
+import com.amataee.trivia.util.Prefs;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     List<Question> questionList;
     private int currentQuestionIndex = 1;
     private final Handler handler = new Handler();
-    private int score = 0;
+    private int scoreCounter = 0;
+    private Score score;
+    private Prefs prefs;
 
 
     @Override
@@ -31,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        score = new Score();
+        prefs = new Prefs(this);
+        binding.scoreTextView.setText(MessageFormat.format("Score: {0}", String.valueOf(score.getScore())));
+
+        binding.highestScoreTextView.setText(MessageFormat.format("Highest: {0}", String.valueOf(prefs.getHighestScore())));
+
 
         questionList = new Repository().getQuestions(questionArrayList -> {
             binding.questionTextView.setText(questionArrayList.get(currentQuestionIndex).getAnswer());
@@ -64,19 +77,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (userChoseCorrect == answer) {
             snackMessageId = R.string.correct_answer;
-            score++;
             fadeAnim();
+            addPoints();
         } else {
             snackMessageId = R.string.incorrect;
-            score--;
             shakeAnim();
+            deductPoints();
         }
-
-        if (score < 0) {
-            score = 0;
-        }
-
-        binding.scoreTextView.setText("Score: " + score);
 
         Snackbar.make(binding.cardView, snackMessageId, Snackbar.LENGTH_SHORT)
                 .show();
@@ -147,5 +154,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void addPoints() {
+        scoreCounter += 100;
+        score.setScore(scoreCounter);
+        binding.scoreTextView.setText(MessageFormat.format("Score: {0}", String.valueOf(score.getScore())));
+    }
+
+    private void deductPoints() {
+        if (scoreCounter > 0) {
+            scoreCounter -= 100;
+            score.setScore(scoreCounter);
+            binding.scoreTextView.setText(MessageFormat.format("Score: {0}", String.valueOf(score.getScore())));
+        } else {
+            scoreCounter = 0;
+            score.setScore(scoreCounter);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        prefs.saveHighestScore(score.getScore());
+        super.onPause();
     }
 }

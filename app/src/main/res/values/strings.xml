@@ -9,4 +9,5 @@
     <string name="correct_answer">Keep Going!</string>
     <string name="incorrect">Uhh. Be more careful!</string>
     <string name="score_defualt_text">Score: 0</string>
+    <string name="score_placeholder">Score: 0</string>
 </resources>

@@ -41,25 +41,25 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="0dp"
-            android:layout_height="153dp"
+            android:layout_height="175dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="#18213A"
             app:cardCornerRadius="6dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_out_of">
 
             <TextView
                 android:id="@+id/question_text_view"
                 style="@style/MainTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
                 android:padding="16dp"
-                android:text="@string/placeholder"
                 android:textColor="@color/white_for_dark"
                 android:textSize="16sp" />
         </androidx.cardview.widget.CardView>
@@ -102,14 +102,21 @@
             android:id="@+id/score_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/score_defualt_text"
             android:textColor="@color/white_for_dark"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_view_out_of"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toEndOf="@+id/text_view_out_of"
-            app:layout_constraintTop_toTopOf="@+id/text_view_out_of" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title" />
+
+        <TextView
+            android:id="@+id/highest_score_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white_for_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_view_out_of"
+            app:layout_constraintTop_toBottomOf="@+id/score_text_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
