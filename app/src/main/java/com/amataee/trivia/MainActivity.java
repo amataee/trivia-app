@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Handler;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -39,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         score = new Score();
-        prefs = new Prefs(this);
-        binding.scoreTextView.setText(MessageFormat.format("Score: {0}", String.valueOf(score.getScore())));
 
+        prefs = new Prefs(this);
+        currentQuestionIndex = prefs.getState();
+
+        binding.scoreTextView.setText(MessageFormat.format("Score: {0}", String.valueOf(score.getScore())));
         binding.highestScoreTextView.setText(MessageFormat.format("Highest: {0}", String.valueOf(prefs.getHighestScore())));
 
 
@@ -50,12 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
             updateCounter(questionArrayList);
         });
-
-//        binding.buttonNext.setOnClickListener(view -> {
-//            currentQuestionIndex = (currentQuestionIndex + 1) %  questionList.size();
-//            updateQuestion();
-//
-//        });
 
         binding.buttonTrue.setOnClickListener(view -> {
             checkAnswer(true);
@@ -88,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(binding.cardView, snackMessageId, Snackbar.LENGTH_SHORT)
                 .show();
 
-        handler.postDelayed(() -> {
-            currentQuestionIndex = (currentQuestionIndex + 1) % questionList.size();
-            updateQuestion();
-        }, 600);
 
+    }
 
+    private void getNextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % questionList.size();
+        updateQuestion();
     }
 
     private void updateCounter(ArrayList<Question> questionArrayList) {
@@ -118,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 binding.questionTextView.setTextColor(Color.WHITE);
+                getNextQuestion();
             }
 
             @Override
@@ -147,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 binding.questionTextView.setTextColor(Color.WHITE);
+                getNextQuestion();
             }
 
             @Override
@@ -176,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         prefs.saveHighestScore(score.getScore());
+        prefs.setState(currentQuestionIndex);
         super.onPause();
     }
 }
