@@ -1,3 +1,3 @@
 # trivia-app
 
-A simple quiz app that gets questions from internet 😜
+> A simple quiz app that gets questions from internet 😜
